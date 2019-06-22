@@ -1,5 +1,6 @@
 import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
 import 'package:eat_eat_flutter/place/list/PlaceListItemView.dart';
+import 'package:eat_eat_flutter/place/list/detais/PlaceDetailsView.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -31,8 +32,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var listItems = [
     PlaceListItem("Restaurant", "Category", "A very good place to be crazy"),
-    PlaceListItem("Restaurant", "Other Category", "A very good place to be crazy"),
-    PlaceListItem("Restaurant", "One more Category", "A very good place to be crazy")
+    PlaceListItem(
+        "Restaurant", "Other Category", "A very good place to be crazy"),
+    PlaceListItem(
+        "Restaurant", "One more Category", "A very good place to be crazy")
   ];
 
   @override
@@ -45,6 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.builder(
           itemBuilder: (context, position) {
             return PlaceListItemView(
+              onTap: () {
+                navigateToItemDetails(context);
+              },
               placeListItem: listItems[position],
             );
           },
@@ -52,5 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void navigateToItemDetails(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PlaceDetailsView()));
   }
 }
