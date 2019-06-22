@@ -10,9 +10,9 @@ class PlaceListItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
+    return Card(
+      child: InkWell(
+        onTap: onTap,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: Column(
