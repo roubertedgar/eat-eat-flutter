@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, position) {
             return PlaceListItemView(
               onTap: () {
-                navigateToItemDetails(context);
+                navigateToItemDetails(context, listItems[position]);
               },
               placeListItem: listItems[position],
             );
@@ -60,8 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void navigateToItemDetails(BuildContext context) {
+  void navigateToItemDetails(BuildContext context, PlaceListItem placeListItem) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PlaceDetailsView()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlaceDetailsView(placeListItem)));
   }
 }
