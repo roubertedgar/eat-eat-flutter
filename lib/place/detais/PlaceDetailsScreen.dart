@@ -18,7 +18,14 @@ class PlaceDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              LabeledText(labelText: "Name", text: placeListItem.name),
+              TextFormField(
+                enabled: false,
+                initialValue: placeListItem.name,
+                decoration: InputDecoration(
+                    labelText: "Name",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(3.0)))),
+              ),
               LabeledText(
                 labelText: "Name",
                 text: placeListItem.name,
