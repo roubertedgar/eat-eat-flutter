@@ -18,10 +18,45 @@ class PlaceDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              LabeledText(labelText: "Name:", text: placeListItem.name)
+              LabeledText(labelText: "Name", text: placeListItem.name),
+              LabeledText(
+                labelText: "Name",
+                text: placeListItem.name,
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+              LabeledText(
+                labelText: "Name",
+                text: placeListItem.name,
+                padding: EdgeInsets.only(top: 10.0),
+              )
             ],
           ),
         ));
+  }
+}
+
+class LabeledText extends StatelessWidget {
+  final String labelText;
+  final String text;
+  final EdgeInsetsGeometry padding;
+
+  LabeledText(
+      {@required this.labelText,
+      @required this.text,
+      this.padding: EdgeInsets.zero});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextView(labelText),
+          TextView(text, padding: EdgeInsets.only(top: 5.0)),
+        ],
+      ),
+    );
   }
 }
 
@@ -34,26 +69,5 @@ class PlaceDetailsRoute extends StatelessWidget {
         ModalRoute.of(context).settings.arguments;
 
     return PlaceDetailsScreen(placeListItem);
-  }
-}
-
-class LabeledText extends StatelessWidget {
-  final String labelText;
-  final String text;
-
-  LabeledText({@required this.labelText, @required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        TextView(labelText),
-        TextView(
-          text,
-          textSize: 16.0,
-          padding: EdgeInsets.only(left: 5.0),
-        ),
-      ],
-    );
   }
 }
