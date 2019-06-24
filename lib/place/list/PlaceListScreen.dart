@@ -1,8 +1,8 @@
+import 'package:eat_eat_flutter/place/detais/PlaceDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'PlaceListItem.dart';
 import 'PlaceListItemView.dart';
-import 'detais/PlaceDetailsScreen.dart';
 
 class PlaceListScreen extends StatelessWidget {
   final listItems = [
