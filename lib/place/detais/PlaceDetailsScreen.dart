@@ -1,12 +1,22 @@
 import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
 import 'package:flutter/material.dart';
 
-class PlaceDetailsScreen extends StatelessWidget {
+class PlaceDetailsScreen extends StatefulWidget {
   final PlaceListItem placeListItem;
 
   PlaceDetailsScreen(this.placeListItem);
 
   @override
+  State<StatefulWidget> createState() {
+    return PlaceDetailsState(placeListItem);
+  }
+}
+
+class PlaceDetailsState extends State<PlaceDetailsScreen> {
+  final PlaceListItem placeListItem;
+
+  PlaceDetailsState(this.placeListItem);
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -41,6 +51,18 @@ class PlaceDetailsScreen extends StatelessWidget {
   }
 }
 
+class PlaceDetailsRoute extends StatelessWidget {
+  static const routeName = '/PlaceDetails';
+
+  @override
+  Widget build(BuildContext context) {
+    final PlaceListItem placeListItem =
+        ModalRoute.of(context).settings.arguments;
+
+    return PlaceDetailsScreen(placeListItem);
+  }
+}
+
 class EditText extends StatelessWidget {
   final String labelText;
   final String initialValue;
@@ -49,10 +71,10 @@ class EditText extends StatelessWidget {
 
   EditText(
       {Key key,
-      this.initialValue,
-      this.labelText = "",
-      this.isEnabled = true,
-      this.padding = EdgeInsets.zero})
+        this.initialValue,
+        this.labelText = "",
+        this.isEnabled = true,
+        this.padding = EdgeInsets.zero})
       : super(key: key);
 
   @override
@@ -68,17 +90,5 @@ class EditText extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(3.0)))),
       ),
     );
-  }
-}
-
-class PlaceDetailsRoute extends StatelessWidget {
-  static const routeName = '/PlaceDetails';
-
-  @override
-  Widget build(BuildContext context) {
-    final PlaceListItem placeListItem =
-        ModalRoute.of(context).settings.arguments;
-
-    return PlaceDetailsScreen(placeListItem);
   }
 }
