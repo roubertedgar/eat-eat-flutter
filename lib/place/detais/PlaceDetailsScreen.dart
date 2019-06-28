@@ -1,4 +1,3 @@
-import 'package:eat_eat_flutter/components/TextView.dart';
 import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
 import 'package:flutter/material.dart';
 
@@ -18,50 +17,55 @@ class PlaceDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                enabled: false,
+              EditText(
+                labelText: "Name",
                 initialValue: placeListItem.name,
-                decoration: InputDecoration(
-                    labelText: "Name",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(3.0)))),
-              ),
-              LabeledText(
-                labelText: "Name",
-                text: placeListItem.name,
+                isEnabled: false,
                 padding: EdgeInsets.only(top: 10.0),
               ),
-              LabeledText(
-                labelText: "Name",
-                text: placeListItem.name,
+              EditText(
+                labelText: "Category",
+                initialValue: placeListItem.category,
+                isEnabled: false,
                 padding: EdgeInsets.only(top: 10.0),
-              )
+              ),
+              EditText(
+                labelText: "Description",
+                initialValue: placeListItem.description,
+                isEnabled: false,
+                padding: EdgeInsets.only(top: 10.0),
+              ),
             ],
           ),
         ));
   }
 }
 
-class LabeledText extends StatelessWidget {
+class EditText extends StatelessWidget {
   final String labelText;
-  final String text;
-  final EdgeInsetsGeometry padding;
+  final String initialValue;
+  final bool isEnabled;
+  final EdgeInsets padding;
 
-  LabeledText(
-      {@required this.labelText,
-      @required this.text,
-      this.padding: EdgeInsets.zero});
+  EditText(
+      {Key key,
+      this.initialValue,
+      this.labelText = "",
+      this.isEnabled = true,
+      this.padding = EdgeInsets.zero})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextView(labelText),
-          TextView(text, padding: EdgeInsets.only(top: 5.0)),
-        ],
+      child: TextFormField(
+        enabled: isEnabled,
+        initialValue: initialValue,
+        decoration: InputDecoration(
+            labelText: labelText,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(3.0)))),
       ),
     );
   }
