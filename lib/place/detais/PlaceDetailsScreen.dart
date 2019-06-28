@@ -15,12 +15,28 @@ class PlaceDetailsScreen extends StatefulWidget {
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
   final PlaceListItem placeListItem;
 
+  bool _isInEditionMode = false;
+
   PlaceDetailsState(this.placeListItem);
+
+  void _editItem() {
+    setState(() {
+      _isInEditionMode = true;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Place Details"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                _editItem();
+              },
+            ),
+          ],
         ),
         body: Padding(
           padding: EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
@@ -30,19 +46,19 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
               EditText(
                 labelText: "Name",
                 initialValue: placeListItem.name,
-                isEnabled: false,
+                isEnabled: _isInEditionMode,
                 padding: EdgeInsets.only(top: 10.0),
               ),
               EditText(
                 labelText: "Category",
                 initialValue: placeListItem.category,
-                isEnabled: false,
+                isEnabled: _isInEditionMode,
                 padding: EdgeInsets.only(top: 10.0),
               ),
               EditText(
                 labelText: "Description",
                 initialValue: placeListItem.description,
-                isEnabled: false,
+                isEnabled: _isInEditionMode,
                 padding: EdgeInsets.only(top: 10.0),
               ),
             ],
@@ -71,10 +87,10 @@ class EditText extends StatelessWidget {
 
   EditText(
       {Key key,
-        this.initialValue,
-        this.labelText = "",
-        this.isEnabled = true,
-        this.padding = EdgeInsets.zero})
+      this.initialValue,
+      this.labelText = "",
+      this.isEnabled = true,
+      this.padding = EdgeInsets.zero})
       : super(key: key);
 
   @override
