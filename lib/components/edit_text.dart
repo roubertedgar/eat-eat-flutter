@@ -7,14 +7,17 @@ class EditText extends StatelessWidget {
   final EdgeInsets padding;
   final FocusNode focusNode;
   final bool autoFocus;
+  final TextEditingController controller;
 
-  EditText({Key key,
-    @required this.labelText,
-    this.initialValue,
-    this.isEnabled = true,
-    this.focusNode,
-    this.autoFocus = false,
-    this.padding = EdgeInsets.zero})
+  EditText(
+      {Key key,
+      @required this.labelText,
+      this.initialValue,
+      this.isEnabled = true,
+      this.autoFocus = false,
+      this.focusNode,
+      this.controller,
+      this.padding = EdgeInsets.zero})
       : super(key: key);
 
   @override
@@ -22,10 +25,11 @@ class EditText extends StatelessWidget {
     return Padding(
       padding: padding,
       child: TextFormField(
+        initialValue: initialValue,
+        enabled: isEnabled,
         autofocus: autoFocus,
         focusNode: focusNode,
-        enabled: isEnabled,
-        initialValue: initialValue,
+        controller: controller,
         decoration: InputDecoration(
             labelText: labelText,
             border: OutlineInputBorder(
