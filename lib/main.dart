@@ -1,5 +1,5 @@
-import 'package:eat_eat_flutter/place/detais/PlaceDetailsScreen.dart';
-import 'package:eat_eat_flutter/place/list/PlaceListScreen.dart';
+import 'package:eat_eat_flutter/place/detais/place_details_screen.dart';
+import 'package:eat_eat_flutter/place/list/place_list_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());

@@ -1,5 +1,5 @@
-import 'package:eat_eat_flutter/components/EditText.dart';
-import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
+import 'package:eat_eat_flutter/components/edit_text.dart';
+import 'package:eat_eat_flutter/place/list/place_list_item.dart';
 import 'package:flutter/material.dart';
 
 class PlaceDetailsRoute extends StatelessWidget {

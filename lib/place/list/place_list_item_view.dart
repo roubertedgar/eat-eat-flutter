@@ -1,5 +1,5 @@
-import 'package:eat_eat_flutter/components/TextView.dart';
-import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
+import 'package:eat_eat_flutter/components/text_view.dart';
+import 'package:eat_eat_flutter/place/list/place_list_item.dart';
 import 'package:flutter/material.dart';
 
 class PlaceListItemView extends StatelessWidget {
