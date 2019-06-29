@@ -2,6 +2,18 @@ import 'package:eat_eat_flutter/components/EditText.dart';
 import 'package:eat_eat_flutter/place/list/PlaceListItem.dart';
 import 'package:flutter/material.dart';
 
+class PlaceDetailsRoute extends StatelessWidget {
+  static const routeName = '/PlaceDetails';
+
+  @override
+  Widget build(BuildContext context) {
+    final PlaceListItem placeListItem =
+        ModalRoute.of(context).settings.arguments;
+
+    return PlaceDetailsScreen(placeListItem);
+  }
+}
+
 class PlaceDetailsScreen extends StatefulWidget {
   final PlaceListItem placeListItem;
 
@@ -25,13 +37,6 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
   void initState() {
     _changeState(_placeListItem == null);
     super.initState();
-  }
-
-  void _changeState(bool isInEditMode) {
-    setState(() {
-      _isInEditionMode = isInEditMode;
-      _defineFocusState(isInEditMode);
-    });
   }
 
   @override
@@ -83,23 +88,18 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
     );
   }
 
+  void _changeState(bool isInEditMode) {
+    setState(() {
+      _isInEditionMode = isInEditMode;
+      _defineFocusState(isInEditMode);
+    });
+  }
+
   void _defineFocusState(bool isInEditMode) {
     if (isInEditMode) {
       FocusScope.of(context).requestFocus(_focusNode);
     } else {
       _focusNode.unfocus();
     }
-  }
-}
-
-class PlaceDetailsRoute extends StatelessWidget {
-  static const routeName = '/PlaceDetails';
-
-  @override
-  Widget build(BuildContext context) {
-    final PlaceListItem placeListItem =
-        ModalRoute.of(context).settings.arguments;
-
-    return PlaceDetailsScreen(placeListItem);
   }
 }
