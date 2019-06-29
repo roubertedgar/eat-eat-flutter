@@ -1,6 +1,6 @@
-import 'package:eat_eat_flutter/components/edit_text.dart';
 import 'package:eat_eat_flutter/place/list/place_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:eat_eat_flutter/components/edit_text.dart';
 
 class PlaceDetailsRoute extends StatelessWidget {
   static const routeName = '/PlaceDetails';
@@ -27,7 +27,7 @@ class PlaceDetailsScreen extends StatefulWidget {
 
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
   final FocusNode _focusNode = FocusNode();
-
+  Map<String, TextEditingController> _controllers = {};
   PlaceListItem _placeListItem;
   bool _isInEditionMode;
 
@@ -36,6 +36,7 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
   @override
   void initState() {
     _changeState(_placeListItem == null);
+    _setupEditTextControllers(_placeListItem);
     super.initState();
   }
 
@@ -65,21 +66,21 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
           children: <Widget>[
             EditText(
               labelText: "Name",
-              initialValue: _placeListItem.name,
               isEnabled: _isInEditionMode,
               focusNode: _focusNode,
+              controller: _controllers["name"],
               padding: EdgeInsets.only(top: 10.0),
             ),
             EditText(
               labelText: "Category",
-              initialValue: _placeListItem.category,
               isEnabled: _isInEditionMode,
+              controller: _controllers["category"],
               padding: EdgeInsets.only(top: 10.0),
             ),
             EditText(
               labelText: "Description",
-              initialValue: _placeListItem.description,
               isEnabled: _isInEditionMode,
+              controller: _controllers["description"],
               padding: EdgeInsets.only(top: 10.0),
             ),
           ],
@@ -101,5 +102,13 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
     } else {
       _focusNode.unfocus();
     }
+  }
+
+  void _setupEditTextControllers(PlaceListItem placeListItem) {
+    _controllers = {
+      "name": TextEditingController(text: placeListItem.name),
+      "category": TextEditingController(text: placeListItem.category),
+      "description": TextEditingController(text: placeListItem.description),
+    };
   }
 }
