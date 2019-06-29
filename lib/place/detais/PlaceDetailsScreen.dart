@@ -14,6 +14,8 @@ class PlaceDetailsScreen extends StatefulWidget {
 }
 
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
+  final FocusNode _focusNode = FocusNode();
+
   PlaceListItem _placeListItem;
   bool _isInEditionMode;
 
@@ -21,9 +23,21 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
 
   @override
   void initState() {
-    _isInEditionMode = _placeListItem == null;
-
+    _changeState(_placeListItem == null);
     super.initState();
+  }
+
+  void _changeState(bool isInEditMode) {
+    setState(() {
+      _isInEditionMode = isInEditMode;
+      _defineFocusState(isInEditMode);
+    });
+  }
+
+  @override
+  dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -34,7 +48,7 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
-              _editItem();
+              _changeState(true);
             },
           ),
         ],
@@ -48,6 +62,7 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
               labelText: "Name",
               initialValue: _placeListItem.name,
               isEnabled: _isInEditionMode,
+              focusNode: _focusNode,
               padding: EdgeInsets.only(top: 10.0),
             ),
             EditText(
@@ -68,10 +83,12 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
     );
   }
 
-  void _editItem() {
-    setState(() {
-      _isInEditionMode = true;
-    });
+  void _defineFocusState(bool isInEditMode) {
+    if (isInEditMode) {
+      FocusScope.of(context).requestFocus(_focusNode);
+    } else {
+      _focusNode.unfocus();
+    }
   }
 }
 
