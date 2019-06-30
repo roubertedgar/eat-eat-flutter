@@ -9,10 +9,7 @@ class PlaceDetailsRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlaceListItem placeListItem =
-        ModalRoute
-            .of(context)
-            .settings
-            .arguments;
+        ModalRoute.of(context).settings.arguments;
 
     return PlaceDetailsScreen(placeListItem);
   }
@@ -48,7 +45,7 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
       _changeState(viewState.isInEditionMode);
     });
 
-    placeViewModel.placeModel.listen((place){
+    placeViewModel.placeModel.listen((place) {
       _setupEditTextControllers(place);
     });
   }
