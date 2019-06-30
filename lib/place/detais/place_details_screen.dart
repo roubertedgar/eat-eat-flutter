@@ -1,3 +1,4 @@
+import 'package:eat_eat_flutter/place/detais/place_details_view_model.dart';
 import 'package:eat_eat_flutter/place/list/place_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:eat_eat_flutter/components/edit_text.dart';
@@ -8,7 +9,10 @@ class PlaceDetailsRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlaceListItem placeListItem =
-        ModalRoute.of(context).settings.arguments;
+        ModalRoute
+            .of(context)
+            .settings
+            .arguments;
 
     return PlaceDetailsScreen(placeListItem);
   }
@@ -21,27 +25,37 @@ class PlaceDetailsScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PlaceDetailsState(placeListItem);
+    return PlaceDetailsState(0);
   }
 }
 
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
+  final placeViewModel = PlaceDetailsViewModel();
+
   final FocusNode _focusNode = FocusNode();
   Map<String, TextEditingController> _controllers = {};
-  PlaceListItem _placeListItem;
   bool _isInEditionMode;
 
-  PlaceDetailsState(this._placeListItem);
+  PlaceDetailsState(int placeId);
 
   @override
   void initState() {
-    _changeState(_placeListItem == null);
-    _setupEditTextControllers(_placeListItem);
     super.initState();
+
+    placeViewModel.initViewModel(0);
+
+    placeViewModel.viewState.listen((viewState) {
+      _changeState(viewState.isInEditionMode);
+    });
+
+    placeViewModel.placeModel.listen((place){
+      _setupEditTextControllers(place);
+    });
   }
 
   @override
   dispose() {
+    placeViewModel.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -54,7 +68,7 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
-              _changeState(true);
+              placeViewModel.enterOnEditMode();
             },
           ),
         ],
@@ -96,19 +110,21 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
     });
   }
 
+  void _setupEditTextControllers(PlaceListItem placeListItem) {
+    setState(() {
+      _controllers = {
+        "name": TextEditingController(text: placeListItem.name),
+        "category": TextEditingController(text: placeListItem.category),
+        "description": TextEditingController(text: placeListItem.description),
+      };
+    });
+  }
+
   void _defineFocusState(bool isInEditMode) {
     if (isInEditMode) {
       FocusScope.of(context).requestFocus(_focusNode);
     } else {
       _focusNode.unfocus();
     }
-  }
-
-  void _setupEditTextControllers(PlaceListItem placeListItem) {
-    _controllers = {
-      "name": TextEditingController(text: placeListItem.name),
-      "category": TextEditingController(text: placeListItem.category),
-      "description": TextEditingController(text: placeListItem.description),
-    };
   }
 }
