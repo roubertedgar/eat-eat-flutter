@@ -29,12 +29,15 @@ class PlaceDetailsScreen extends StatefulWidget {
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
   final placeViewModel = PlaceDetailsViewModel();
   final FocusNode _focusNode = FocusNode();
+  PlaceDetailsViewState _viewState;
+  Map<String, TextEditingController> _controllers;
 
   int _placeId;
-  PlaceDetailsState(this._placeId);
+  PlaceDetailsState(this._placeId) {
+    _viewState = PlaceDetailsViewState(true);
+    _controllers = {};
+  }
 
-  PlaceDetailsViewState _viewState;
-  Map<String, TextEditingController> _controllers = {};
   @override
   void initState() {
     super.initState();
