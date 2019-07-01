@@ -28,21 +28,21 @@ class PlaceDetailsScreen extends StatefulWidget {
 
 class PlaceDetailsState extends State<PlaceDetailsScreen> {
   final placeViewModel = PlaceDetailsViewModel();
-
   final FocusNode _focusNode = FocusNode();
+
+  int _placeId;
+  PlaceDetailsState(this._placeId);
+
+  PlaceDetailsViewState _viewState;
   Map<String, TextEditingController> _controllers = {};
-  bool _isInEditionMode;
-
-  PlaceDetailsState(int placeId);
-
   @override
   void initState() {
     super.initState();
 
-    placeViewModel.initViewModel(0);
+    placeViewModel.initViewModel(_placeId);
 
     placeViewModel.viewState.listen((viewState) {
-      _changeState(viewState.isInEditionMode);
+      _changeState(viewState);
     });
 
     placeViewModel.placeModel.listen((place) {
@@ -77,20 +77,20 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
           children: <Widget>[
             EditText(
               labelText: "Name",
-              isEnabled: _isInEditionMode,
+              isEnabled: _viewState.isInEditionMode,
               focusNode: _focusNode,
               controller: _controllers["name"],
               padding: EdgeInsets.only(top: 10.0),
             ),
             EditText(
               labelText: "Category",
-              isEnabled: _isInEditionMode,
+              isEnabled: _viewState.isInEditionMode,
               controller: _controllers["category"],
               padding: EdgeInsets.only(top: 10.0),
             ),
             EditText(
               labelText: "Description",
-              isEnabled: _isInEditionMode,
+              isEnabled: _viewState.isInEditionMode,
               controller: _controllers["description"],
               padding: EdgeInsets.only(top: 10.0),
             ),
@@ -100,21 +100,19 @@ class PlaceDetailsState extends State<PlaceDetailsScreen> {
     );
   }
 
-  void _changeState(bool isInEditMode) {
+  void _changeState(PlaceDetailsViewState viewState) {
     setState(() {
-      _isInEditionMode = isInEditMode;
-      _defineFocusState(isInEditMode);
+      _viewState = viewState;
+      _defineFocusState(viewState.isInEditionMode);
     });
   }
 
   void _setupEditTextControllers(PlaceListItem placeListItem) {
-    setState(() {
-      _controllers = {
-        "name": TextEditingController(text: placeListItem.name),
-        "category": TextEditingController(text: placeListItem.category),
-        "description": TextEditingController(text: placeListItem.description),
-      };
-    });
+    _controllers = {
+      "name": TextEditingController(text: placeListItem.name),
+      "category": TextEditingController(text: placeListItem.category),
+      "description": TextEditingController(text: placeListItem.description),
+    };
   }
 
   void _defineFocusState(bool isInEditMode) {

@@ -18,11 +18,15 @@ class PlaceDetailsViewModel {
     _placeStreamController.add(PlaceListItem(
         "Trying dart stream", "PsycoCategory", "Some cool description"));
 
-    _viewStateController.add(PlaceDetailsViewState(false));
+    _updateViewState(PlaceDetailsViewState(false));
   }
 
   void enterOnEditMode() {
-    _viewStateController.add(PlaceDetailsViewState(true));
+    _updateViewState(PlaceDetailsViewState(true));
+  }
+
+  void _updateViewState(PlaceDetailsViewState viewState) {
+    _viewStateController.add(viewState);
   }
 
   void dispose() {
