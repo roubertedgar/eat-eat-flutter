@@ -22,7 +22,7 @@ class PlaceDetailsScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PlaceDetailsState(0);
+    return PlaceDetailsState(null);
   }
 }
 

@@ -15,10 +15,12 @@ class PlaceDetailsViewModel {
   }
 
   initViewModel(int placeId) {
-    _placeStreamController.add(PlaceListItem(
-        "Trying dart stream", "PsycoCategory", "Some cool description"));
-
-    _updateViewState(PlaceDetailsViewState(false));
+    if (placeId != null) {
+      _placeStreamController.add(PlaceListItem(
+          "Trying dart stream", "PsycoCategory", "Some cool description"));
+    } else {
+      _updateViewState(PlaceDetailsViewState(true));
+    }
   }
 
   void enterOnEditMode() {
