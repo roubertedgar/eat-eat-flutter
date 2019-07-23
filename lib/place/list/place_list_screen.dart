@@ -24,7 +24,7 @@ class PlaceListScreen extends StatelessWidget {
           itemBuilder: (context, position) {
             return PlaceListItemView(
               onTap: () {
-                navigateToItemDetails(context, listItems[position]);
+                _editPlace(context, listItems[position]);
               },
               placeListItem: listItems[position],
             );
@@ -32,10 +32,20 @@ class PlaceListScreen extends StatelessWidget {
           itemCount: listItems.length,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _newPlace(context);
+        },
+      ),
     );
   }
 
-  void navigateToItemDetails(BuildContext context, PlaceListItem placeListItem) {
-    Navigator.pushNamed(context, PlaceDetailsRoute.routeName, arguments: placeListItem);
+  void _editPlace(BuildContext context, PlaceListItem placeListItem) {
+    Navigator.pushNamed(context, PlaceDetailsRoute.routeName,
+        arguments: placeListItem);
+  }
+
+  void _newPlace(BuildContext context) {
+    Navigator.pushNamed(context, PlaceDetailsRoute.routeName);
   }
 }
