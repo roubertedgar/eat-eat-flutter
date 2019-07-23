@@ -33,6 +33,7 @@ class PlaceListScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
         onPressed: () {
           _newPlace(context);
         },
