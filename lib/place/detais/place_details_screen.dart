@@ -8,21 +8,21 @@ class PlaceDetailsRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PlaceListItem placeListItem =
+    final int placeId =
         ModalRoute.of(context).settings.arguments;
 
-    return PlaceDetailsScreen(placeListItem);
+    return PlaceDetailsScreen(placeId);
   }
 }
 
 class PlaceDetailsScreen extends StatefulWidget {
-  final PlaceListItem placeListItem;
+  final int placeId;
 
-  PlaceDetailsScreen(this.placeListItem);
+  PlaceDetailsScreen(this.placeId);
 
   @override
   State<StatefulWidget> createState() {
-    return PlaceDetailsState(null);
+    return PlaceDetailsState(placeId);
   }
 }
 

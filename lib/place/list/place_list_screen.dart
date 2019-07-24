@@ -6,11 +6,11 @@ import 'place_list_item_view.dart';
 
 class PlaceListScreen extends StatelessWidget {
   final listItems = [
-    PlaceListItem("Restaurant", "Category", "A very good place to be crazy"),
+    PlaceListItem(0, "Restaurant", "Category", "A very good place to be crazy"),
     PlaceListItem(
-        "Restaurant", "Other Category", "A very good place to be crazy"),
+        1, "Restaurant", "Other Category", "A very good place to be crazy"),
     PlaceListItem(
-        "Restaurant", "One more Category", "A very good place to be crazy")
+        2, "Restaurant", "One more Category", "A very good place to be crazy")
   ];
 
   @override
@@ -43,7 +43,7 @@ class PlaceListScreen extends StatelessWidget {
 
   void _editPlace(BuildContext context, PlaceListItem placeListItem) {
     Navigator.pushNamed(context, PlaceDetailsRoute.routeName,
-        arguments: placeListItem);
+        arguments: placeListItem.id);
   }
 
   void _newPlace(BuildContext context) {

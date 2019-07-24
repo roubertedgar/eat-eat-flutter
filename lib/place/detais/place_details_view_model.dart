@@ -17,7 +17,7 @@ class PlaceDetailsViewModel {
   initViewModel(int placeId) {
     if (placeId != null) {
       _placeStreamController.add(PlaceListItem(
-          "Trying dart stream", "PsycoCategory", "Some cool description"));
+          0, "Trying dart stream", "PsycoCategory", "Some cool description"));
     } else {
       _updateViewState(PlaceDetailsViewState(true));
     }
